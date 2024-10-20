@@ -3,48 +3,21 @@ import {all, createRef, Direction, slideTransition, waitFor} from '@motion-canva
 import {Latex} from "@motion-canvas/2d";
 
 export default makeScene2D(function* (view) {
-    // Create your animations here
-
-    const circle = createRef<Circle>();
-    const circle2 = createRef<Circle>();
-    const rect = createRef<Rect>();
-    const text = createRef<Txt>();
+    const myCircle = createRef<Circle>();
 
     view.add(
-        <Rect
-            ref={rect}
-            width={'100%'}
-            height={'100%'}
-            fill={'lightcoral'}
-            layout
-            alignItems={'center'}
-            justifyContent={'center'}
-        >
-            <Txt
-                ref={text}
-                fontSize={160}
-                fontWeight={700}
-                fill={'white'}
-                fontFamily={'"JetBrains Mono", monospace'}
-            >
-                SECOND SCENE
-            </Txt>
-        </Rect>,
+        <Circle
+            ref={myCircle}
+            // try changing these properties:
+            x={-300}
+            width={140}
+            height={140}
+            fill="#e13238"
+        />,
     );
-    // view.add(<Circle ref={circle} size={320} fill={'lightseagreen'}/>);
-    // view.add(<Circle ref={circle2} size={30} fill={'blue'}/>);
 
-    yield* slideTransition(Direction.Left);
-
-    yield* waitFor(0.4);
     yield* all(
-        rect().fill('lightseagreen', 0.6),
-        text().text('FIRST SCENE', 0.6),
-        text().fill('FIRST SCENE', 0.6),
-    );/*
-    yield* slideTransition(Direction.Left);
-    yield* all(
-        circle().scale(2, 2).to(1, 2),
-        circle2().scale(2, 2).to(1, 2),
-    );*/
+        myCircle().position.x(300, 1).to(-300, 1),
+        myCircle().fill('#e6a700', 1).to('#e13238', 1),
+    );
 });
