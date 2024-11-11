@@ -13,7 +13,7 @@
 
 % Title Section
 \title{MATD02 - Exploration of Finite Geometry }
-\author{Your Name}
+\author{Danielle Voznyy}
 \date{}
 
 \begin{document}
@@ -30,22 +30,31 @@
         Nullam vitae ultrices nulla, at dapibus lectus.
         Nullam ultrices eros eu lorem laoreet elementum.
         Nullam ullamcorper in lectus vel varius.
-        Praesent lobortis sem vitae elit posuere, in consectetur magna tempor.
-        Vivamus nunc ligula, ullamcorper ac sapien vel, dignissim varius leo.
-        Mauris vel suscipit metus, id ornare odio.
-        Vivamus ultricies vehicula mi ut bibendum.
-        Nullam sollicitudin elit sit amet velit lacinia, eget pretium nisl viverra.
-        Nulla laoreet nisi non velit posuere, a vehicula diam vehicula.
-        Donec fermentum commodo tortor, ac feugiat orci iaculis sit amet.
-        Suspendisse luctus, velit eu placerat dapibus, justo felis mattis tortor, vitae blandit leo justo vitae nibh.
     \end{abstract}
-
 
     \section{Introduction}
 
-    Introduce four/five point geometries as a way to start thinking about geometries more abstractly, use notes from\cite{sinn_course_2021}
+    Finite geometries are axiomatically defined finite sets of point and lines.
+    Set theory helps us provide a more rigorous definition of these elements,
+    we'll use the following simple definitions going forward:
 
-    \section{The Fano plane}
+    \begin{itemize}
+        \setlength\itemsep{0em}
+        \item Points are elements in a finite set \( S \).
+        \item Lines are elements in a subset of the power set of \( S \).
+        \item We say a point \( p \) is on a line \( l \) when \( p \in l \).
+        \item Lines \( l_1 \) and \( l_2 \) intersect when \( l_1 \cap l_2 \neq \emptyset \)..
+    \end{itemize}
+
+    Let's explore what axioms could lead to such a geometry.
+
+    \section{Finite planes}
+
+    \subsection{Finite affine planes}
+
+    \subsection{Finite projective planes}
+
+    Study fano plane
 
     \begin{theorem}
         Ex. Each point is on exactly three lines
@@ -55,9 +64,24 @@
 
     \end{proof}
 
-    \section{Connections to finite groups}
-    Explore ideas in from the following sources\cite{carmichael_finite_1930,tsuzuku_finite_1982},
-    I'd really like to look at broader connections than symmetry groups.
+
+    \subsection{Order of finite planes}
+
+    \section{Synthetic geometry and higher dimensions}
+
+    Notice we didn't have to talk about our points as being two-dimensional,
+    however something about the axioms we used let us represent our spaces as two dimensional planes.
+
+    Synthetic geometry studies such axiomatically defined geometries, and gives us tools to talk about
+    higher dimensional spaces with set theoretic definitions of dimension.
+
+    DEFINE projective plane axiomatically
+
+    DEFINE geometric dimension
+
+    \subsection{Projective spaces and geometric dimension}
+
+    Projective planes are two-dimensional projective spaces
 
     \begin{theorem}
     \end{theorem}
@@ -65,9 +89,15 @@
     \begin{proof}
     \end{proof}
 
+    \subsection{Finite projective planes of order $\geq 3$ }
+
     \section{Future Developments}
 
     Take a look at notes from the group theory textbooks.
+
+    \subsection{Conjectures}
+
+    From wiki: Is the order of a finite plane always a prime power?
 
     % References
     \bibliography{references}
