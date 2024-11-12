@@ -4,12 +4,18 @@
 \usepackage{amsmath, amsthm, amssymb}
 \usepackage{cite}
 \usepackage{geometry}
+\usepackage{csquotes}
 \geometry{a4paper, margin=2.5cm}
 
+%\setlength{\parskip}{\baselineskip}%
+%\setlength{\parindent}{0pt}
+\usepackage{parskip}
+\setlength{\parindent}{0pt}
 
 % Theorem and Proof setup
 \newtheorem{theorem}{Theorem}
 \newtheorem{lemma}{Lemma}
+\newtheorem{definition}{Definition}
 
 % Title Section
 \title{MATD02 - Exploration of Finite Geometry }
@@ -32,6 +38,7 @@
         Nullam ullamcorper in lectus vel varius.
     \end{abstract}
 
+
     \section{Introduction}
 
     Finite geometries are axiomatically defined finite sets of point and lines.
@@ -47,6 +54,7 @@
     \end{itemize}
 
     Let's explore what axioms could lead to such a geometry.
+
 
     \section{Finite planes}
 
@@ -64,36 +72,47 @@
 
     \end{proof}
 
-
     \subsection{Order of finite planes}
 
-    \section{Synthetic geometry and higher dimensions}
+
+    \section{Finite geometries in higher dimensions}
+
+%    Synthetic geometry studies such axiomatically defined geometries, and gives us tools to talk about
+%    higher dimensional spaces with set theoretic definitions of dimension.
 
     Notice we didn't have to talk about our points as being two-dimensional,
-    however something about the axioms we used let us represent our spaces as two dimensional planes.
+    however something about our choice of points let us represent our spaces as two-dimensional planes.
 
-    Synthetic geometry studies such axiomatically defined geometries, and gives us tools to talk about
-    higher dimensional spaces with set theoretic definitions of dimension.
+    In fact, when looking at projective geometry through the lens of infinite sets like $R$,
+    we get a definition of \enquote{projective spaces} by looking at one-dimensional vector subspaces of a vector space like $R^n$.\cite{weisstein_projective_nodate}
+%    The projective part of projective geometry can be thought of as adding points at infinity to such a vector space,
+    Here, our dimension comes from a concept of coordinates in the underlying vector space.
 
-    DEFINE projective plane axiomatically
 
-    DEFINE geometric dimension
+    In the finite case however\textemdash especially working purely from axioms\textemdash we don't have such an obvious idea of dimension.
+    We can, however, generalize concepts from vector spaces to get the following definitions.\cite{noauthor_projective_2024,beutelspacher_projective_2000}
 
-    \subsection{Projective spaces and geometric dimension}
+%    A subspace of the projective space is a subset X, such that any line containing two points of X is a subset of X (that is, completely contained in X). The full space and the empty space are always subspaces.
+    \begin{definition}
+        A subspace of the projective space is a subset X, such that any line containing two points of X is a subset of X (that is, completely contained in X). The full space and the empty space are always subspaces.
+    \end{definition}
 
-    Projective planes are two-dimensional projective spaces
+    \begin{definition}
+        The geometric dimension of the space $P$ is said to be n if that is the largest number for which there is a strictly ascending chain of subspaces of this form:
+        \[\emptyset = X_{-1}\subset X_{0}\subset \cdots X_{n}=P.\]
+    \end{definition}
 
     \begin{theorem}
+        Projective planes are projective spaces of dimension 2.
     \end{theorem}
 
     \begin{proof}
     \end{proof}
 
-    \subsection{Finite projective planes of order $\geq 3$ }
+    \subsection{Finite projective spaces of dimension $\geq 3$ }
+
 
     \section{Future Developments}
-
-    Take a look at notes from the group theory textbooks.
 
     \subsection{Conjectures}
 
