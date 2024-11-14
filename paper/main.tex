@@ -11,9 +11,11 @@
 %\setlength{\parindent}{0pt}
 \usepackage{parskip}
 \usepackage{amssymb}
+\usepackage{tikz}
 \usepackage{amsfonts}
 \usepackage[colorinlistoftodos,prependcaption,textsize=tiny]{todonotes}
-\setlength{\parindent}{0pt}
+\usepackage{biblatex}
+
 
 % Theorem and Proof setup
 \newtheorem{theorem}{Theorem}
@@ -31,30 +33,32 @@
 
     \begin{abstract}
         We explore finite geometries through a synthetic point of view.
-        Starting with axioms, we explore finite planes, their orders, and prove some properties about the Fano plane.
-        We then look at how concepts like dimension in projective spaces can be described without coordinate systems.
-        Finally, we discuss some conjectures and future directions in the field.
+        Starting with axioms, we define finite projective spaces and planes.
+        We discuss the concepts of order and dimension in these spaces,
+        specifically how dimension in projective spaces can be described without a coordinate system.
+        Finally, we discuss an open conjecture about the order of finite planes.
     \end{abstract}
 
 
-    \section{Finite plane geometry}
+    \section{Introduction}
 
     Finite geometries provide a good introduction to axiomatic, sometimes called synthetic, definitions of geometries
     because they work with finite number of points that can help visualize more abstract concepts.
+    \todo{Look over intro again, finite is nice for abstract sets I guess.}
 
-    We'll begin by describing finite planes using two sets and the set containment relation.
+    We'll begin by describing finite geometries using two sets and the set containment relation
+    (noting these definitions often differ based on the context.)
 
     \begin{definition}
-        Let $P$ be nonempty a finite set and $L \subseteq \mathcal{P}(P)$, be a nonempty subset of the power set of $P$.
+        Let $P$ be nonempty a finite set and $\mathcal{L} \subseteq \mathcal{P}(P)$, be a nonempty subset of the power set of $P$,
+        then $(P, \mathcal{L})$ is a geometry.
 
-        We'll call an element of $P$ is a point in our space, and an element of $L$ is a line.
-        We say a point $p$ is on a line when $p \in L$ and lines $L_1, L_2$ intersect when $L_1 \cap L_2 \neq \emptyset$
-        \todo{Mention that there's more abstract definitions? We like to talk about planes and more in higher dimensions but unsure if relevant to this.}
-        .
+        We'll call an element of $P$ a point in our space, and an element of $\mathcal{L}$ a line.
+        We say a point $p$ is on a line $L$ when $p \in L$ and lines $L_1, L_2$ intersect when $L_1 \cap L_2 \neq \emptyset$.
     \end{definition}
 
-    We can now categorize these planes using axioms.
-    Two broad types of geometries come from a similar set of axioms which differ in the existence of parallel lines.
+    We can now categorize these spaces using axioms, starting with planes.
+    Two broad types of plane geometries come from a similar set of axioms which differ in the existence of parallel lines.
     Affine geometry, where parallel lines exist, and projective geometry, where they do not.
     As it turns out, these are quite similar despite projective geometry being simpler to work with\cite[p.~7]{beutelspacher_projective_2000}.
 
@@ -63,57 +67,111 @@
     Let's begin by defining projective spaces axiomatically, with an extra axiom for projective planes,
 
     \begin{definition}
-        A projective space is a such that,
+        A projective space is a geometry such that,
         \begin{itemize}
-            \item For distinct points $p, q$, there is exactly one line $L$ such that ${p,q} \subseteq L$.
+            \item A1 - For distinct points $p, q$, there is exactly one line $L$ such that $\{p,q\} \subseteq L$.
             We call it the line containing $p, q$, or just the line $pq$.
-            \item Given points $a,b,c,d$, if $ab$ intersects $cd$, then $ac$ intersects $bd$
-            \item Any line contains at least three elements.
-            \item We call this projective space a projective plane if any two lines intersect.
+            \item A2 - Given points $a,b,c,d$, if $ab$ intersects $cd$, then $ac$ intersects $bd$
+            \item A3 - Any line contains at least 3 elements.
+            \item A4 - We call this projective space a projective plane if any two lines have at least one point in common, i.e. they intersect
         \end{itemize}
     \end{definition}
 
-    \subsubsection{The fano plane}
+    To avoid simple cases, we often also assume that the space has at least two lines.
+    The Fano plane is an example of such a projective plane, in fact it is the smallest projective plane,
+    containing 7 points and 7 lines, illustrated below:
 
-    Study fano plane\todo[inline]{Not sure what the best way to introduce this is? Space for a quick proof about it containing 7 points, an image?}
+%   From: https://tex.stackexchange.com/questions/208894/how-might-i-typeset-the-fano-plane-in-latex
+    \begin{figure}[h]
+        \centering
+        \label{fig:fano_plane}
+        \tikz[every node/.style={circle, fill, scale=0.5}]
+        \draw circle [radius=1] (90:2) -- (210:2) -- (330:2) -- cycle (0,0) node {}
+        \foreach \i in {90,210,330}{ (\i:2) node {} -- (\i+180:1) node {} };
+    \end{figure}
 
-    \subsection{Order of finite projective spaces}
+    It's fairly routine work to show the set of points and lines shown above do in fact satisfy our earlier axioms,
+    however more interesting is that this plane has the same number of points and all lines contain three points.
+    Does this generalize to all projective spaces?
 
-    Finite projective spaces have an interesting property, all their lines contain an equal number of elements, which gives rise to an idea of order.
+    \section{Order of finite projective spaces}
+
+    In fact, these do generalize, we call the first concept duality,
+    in which theorems about lines on a projective plane also have duals regarding points (and vice-versa).
+    This generalizes further to higher dimensions with dual spaces.
+    The second only makes sense in the finite case, and gives rise to a concept of order. \cite[p. 24]{beutelspacher_projective_2000}
 
     \begin{theorem}
-        Given a projective space, there exists a positive integer $q$ such that any line in $L$ contains exactly $q+1$ elements.
+        Given a finite projective space, there exists a positive integer $q$ such that any line in $L$ contains exactly $q+1$ elements.
         We call q the order of this space.
     \end{theorem}
 
     \begin{proof}
-        \todo[inline]{Prove.}
+        Given any two lines $L_1, L_2$, we'll argue there exists a bijection $\phi: L_1 \rightarrow L_2$,
+        and thus all lines have the same number of elements.
+        If $L_1 = L_2$ we are done, so we consider distinct lines.
+
+        Case: $L_1$ intersects $L_2$
+
+        Then $\{a, b\} \subseteq L_1$ and $\{a, c\} \subseteq L_2$ for some points $a,b,c$,
+        since by A3 both lines contain at least 3 distinct points and by supposition we have at least one shared point.
+
+        As well, by A3 line $bc$ must contain another point, name it $p$, moreover $p \notin L_1, L_2$,
+        otherwise $L_1 = L_2$ by A1, the uniqueness of lines through points.
+
+        Then given any other point $x \in L_1$, consider the line $xp$.
+        We'll show this must intersect $L_2$ using A2 and call the intersection point $\phi(x)$.
+
+        \begin{figure}[h]
+            \centering
+            \begin{tikzpicture}
+                % Draw the lines
+                \draw[thick] (-2,0) -- (3,1) node[right] {$L_1$};
+                \draw[thick] (-2,0) -- (3,-1) node[right] {$L_2$};
+                % Draw the intersection point
+                \fill (-2,0) circle (2pt) node[below] {$a$};
+                % Label points on L1
+                \fill (2,0.8) circle (2pt) node[above] {$b$};
+                \fill (0,0.4) circle (2pt) node[above] {$x$};
+                % Label points on L2
+                \fill (2,-0.8) circle (2pt) node[below] {$\phi(x)$};
+                \fill (0,-0.4) circle (2pt) node[below] {$c$};
+                % Draw intersecting lines
+                \draw[thick] (2,-0.8) -- (0,0.4)
+                \draw[thick] (2,0.8) -- (0,-0.4)
+                \fill (0.7,0) circle (2pt) node[below] {$p$};
+            \end{tikzpicture}
+%            \caption{Illustration of our points and lines}
+            \label{fig:intersecting_lines}
+        \end{figure}
+
+        Given points $a,b,c,d$, if $ab$ intersects $cd$, then $ac$ intersects $bd$
+        Given points $a,b,c,d$, if $ab$ intersects $cd$, then $ac$ intersects $bd$
     \end{proof}
 
-    \section{Dimension in finite projective spaces}
 
-%    Synthetic geometry studies such axiomatically defined geometries, and gives us tools to talk about
-%    higher dimensional spaces with set theoretic definitions of dimension.
+    \section{Dimension of finite projective spaces}
 
-    Notice to give our projective space an idea of being planes (somehow being two-dimensional), we had to add an axiom stating any two lines intersect.
-    We might now wonder what this axiom actually does, and what the idea of dimension even means here.
+    The use of the term plane for our extra axiom\textemdash stating any two lines must intersect\textemdash seems connected to a two-dimensional space.
+    We might now wonder what this axiom actually does, and what the idea of dimension even means for the abstract sets we used.
 
-    In fact, when looking at projective geometry through the lens of infinite sets like $\mathbb{R}$,
+    In fact, when looking at projective geometry through the lens of infinite fields like $\mathbb{R}$,
     we get a definition of projective spaces by looking at one-dimensional vector subspaces of a vector space like $\mathbb{R}^n$.\cite{weisstein_projective_nodate}
-%    The projective part of projective geometry can be thought of as adding points at infinity to such a vector space,
-    Here, our dimension comes from a concept of coordinates in the underlying vector space.
+    Here, our dimension comes from a concept of coordinates in the underlying vector space, i.e.\ its basis.
 
-    In the finite case\textemdash especially working purely from axioms\textemdash we don't have such an obvious idea of dimension.
+    In the finite case\textemdash especially working purely from axioms\textemdash
+    we don't have such an obvious idea of dimension.
     We can, however, generalize concepts from vector spaces to get the following definitions.\cite{noauthor_projective_2024,beutelspacher_projective_2000}
 
     \begin{definition}
-        A subspace of the projective space is a subset X, such that any line containing two points of X is a subset of X (that is, completely contained in X).
+        A subspace of the projective space is a subset $X \subseteq P$,
+        such that any line containing two points of X is a subset of X (that is, completely contained in X).
         The full space and the empty space are always subspaces.
     \end{definition}
 
     \begin{definition}
         The geometric dimension of the space $P$ is said to be n if that is the largest number for which there is a strictly ascending chain of subspaces of this form:
-        \[\emptyset = X_{-1}\subset X_{0}\subset \cdots X_{n}=P.\]
+        $\emptyset = X_{-1}\subset X_{0}\subset \cdots X_{n}=P.$
     \end{definition}
 
     \begin{theorem}
@@ -121,29 +179,41 @@
     \end{theorem}
 
     \begin{proof}
-        \todo[inline]{Prove.}
+        By A4, any two lines $L_1, L_2$ intersect.
+        Thus, any nonempty subspace $X$ containing a line $L$
+        \todo{Prove.}
     \end{proof}
 
-    \todo[inline]{I believe this definition can be described more intuitively as being able to draw continuous versions of our lines through points in n-dimensions without the lines intersecting.}
+    This proof highlights the idea behind this geometric dimension definition,
+    our chain of subspaces is akin to talking about different objects of increasing dimension in our space.
+    That is, points in lines, lines in planes,\ldots, up to $n-1$ dimensional hyperplanes, to the full space itself.
 
     \subsection{Finite projective spaces of dimension $\geq 3$ }
 
     As it turns out, order and dimension are powerful tools for classifying finite geometries.
-    In fact, we use the notation $PG(n, q)$ to talk about projective spaces of dimension $n$ and order $q+1$
-    that arise from a field of order $q$, written $GF(q)$ (since they are isomorphic up to order.)\todo{Quickly mention what isomorphism means for projective spaces.}
+    In fact, we use the notation $PG(n, q)$ to talk about finite projective spaces of dimension $n$ and order $q+1$
+    that arise from a finite field of order $q$, written $GF(q)$ (since they are isomorphic up to order.)\todo{Quickly mention what isomorphism means for projective spaces.}
 
-    The Veblen-Young theorem shows finite projective spaces of dimension $n \geq 3$ can always be described using such a field, up to isomorphism.
-    However, finite projective planes can be constructed in more ways, specifically non-Desarguesian planes, which make
-    it much harder to classify planes of order two\todo{Mention examples? State Desargues' theorem?}.
+    The Veblen-Young theorem shows finite projective spaces of dimension $n \geq 3$ can always be described using such a field.
+    Finite projective planes are much harder to classify, since they can be constructed in more ways.
+    Specifically, non-Desarguesian planes.
+
+    \todo{Mention examples? State Desargues' theorem?}
+
 
     \section{Future Developments}
 
     The difficulty in classifying finite projective planes gives rise to an open question:
 
-    \textit{Is the order of a finite plane always a prime power?}
+    \textit{Is the order of a finite projective plane always a prime power?}
 
-    \todo[inline]{Bruck–Ryser theorem}
-    \todo[inline]{Classification up to order 10, why is it so difficulty to do past this small number?}
+    The number of non-isomorphic planes are known up to order 10: $1, 1, 1, 1, 0, 1, 1, 4, 0$.
+    Moreover, the Bruck-Ryser theorem states for $n \equiv 1,2\ (mod\ 4)$ and $n$ is not the sum of two squares,
+    then no plane exists of order $n$.\cite{https://oeis.org/A001231}
+    \todo{Insert citation into bibtex}
+
+    \todo{Bruck–Ryser theorem}
+    \todo{Classification up to order 10, why is it so difficulty to do past this small number?}
 
     % References
     \bibliography{references}
