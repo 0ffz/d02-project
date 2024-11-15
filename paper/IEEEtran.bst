@@ -1,10 +1,9 @@
 %%
-%% IEEEtran_link.bst based on IEEEtran.bst 1.14
+%% IEEEtran.bst
 %% BibTeX Bibliography Style file for IEEE Journals and Conferences (unsorted)
 %% Version 1.14 (2015/08/26)
 %%
-%% Copyright (c) 2003-2015 Michael Shell - IEEEtran.bst
-%% Copyright (c) 2016-2020 Thomas Guillod - IEEEtran_link.bst
+%% Copyright (c) 2003-2015 Michael Shell
 %%
 %% Original starting code base and algorithms obtained from the output of
 %% Patrick W. Daly's makebst package as well as from prior versions of
@@ -78,11 +77,6 @@
 FUNCTION {default.is.use.number.for.article} { #1 }
 
 
-% #0 turns off the the link of the article.
-% #1 enables
-FUNCTION {default.is.use.linkfile} { #1 }
-
-
 % #0 turns off the display of the paper and type fields in @inproceedings.
 % #1 enables
 FUNCTION {default.is.use.paper} { #1 }
@@ -131,7 +125,7 @@ FUNCTION {default.ALTinterwordstretchfactor} { "4" }
 % #0 turns off the "dashification" of repeated (i.e., identical to those
 % of the previous entry) names. The IEEE normally does this.
 % #1 enables
-FUNCTION {default.is.dash.repeated.names} { #0 }
+FUNCTION {default.is.dash.repeated.names} { #1 }
 
 
 % The default name format control string.
@@ -280,9 +274,6 @@ ENTRY
     monthfiled
     nationality
     note
-    linkdoi
-    linkurl
-    linkfile
     number
     organization
     pages
@@ -336,7 +327,6 @@ INTEGERS { longest.label.width multiresult nameptr namesleft number.label numnam
 INTEGERS { is.use.number.for.article
            is.use.paper
            is.use.url
-           is.use.linkfile
            is.forced.et.al
            max.num.names.before.forced.et.al
            num.names.shown.with.forced.et.al
@@ -367,7 +357,6 @@ STRINGS { bibinfo
 
 FUNCTION {initialize.controls}
 { default.is.use.number.for.article 'is.use.number.for.article :=
-  default.is.use.linkfile 'is.use.linkfile :=
   default.is.use.paper 'is.use.paper :=
   default.is.use.url 'is.use.url :=
   default.is.forced.et.al 'is.forced.et.al :=
@@ -1748,46 +1737,6 @@ FUNCTION {format.note}
   if$
 }
 
-%% link
-
-FUNCTION {format.linkfile}
-{ is.use.linkfile
-  { linkfile empty$
-    { "" }
-    { this.to.prev.status
-      this.status.std
-      "\linkfile{" linkfile * "}" *
-    }
-  if$
-  }
-     { "" }
-   if$
-}
-
-
-
-FUNCTION {format.linkdoi}
-{ linkdoi empty$
-    { "" }
-    { this.to.prev.status
-      this.status.std
-	  "\linkdoi{" linkdoi * "}" *
-    }
-  if$
-}
-
-
-
-FUNCTION {format.linkurl}
-{ linkurl empty$
-    { "" }
-    { this.to.prev.status
-      this.status.std
-	  "\linkurl{" linkurl * "}" *
-    }
-  if$
-}
-
 
 
 %% patent
@@ -2001,9 +1950,6 @@ FUNCTION {article}
   format.pages output
   format.date "year" output.warn
   format.note output
-  format.linkurl output
-  format.linkdoi output
-  format.linkfile output
   format.url output
   fin.entry
   if.url.std.interword.spacing
@@ -2028,9 +1974,6 @@ FUNCTION {book}
   format.volume output
   format.number output
   format.note output
-  format.linkurl output
-  format.linkdoi output
-  format.linkfile output
   format.url output
   fin.entry
   if.url.std.interword.spacing
@@ -2048,9 +1991,6 @@ FUNCTION {booklet}
   format.address "address" bibinfo.check output
   format.date output
   format.note output
-  format.linkurl output
-  format.linkdoi output
-  format.linkfile output
   format.url output
   fin.entry
   if.url.std.interword.spacing
@@ -2068,9 +2008,6 @@ FUNCTION {electronic}
   format.organization "organization" bibinfo.check output
   format.address "address" bibinfo.check output
   format.note output
-  format.linkurl output
-  format.linkdoi output
-  format.linkfile output
   format.url output
   fin.entry
   empty.entry.warn
@@ -2094,9 +2031,6 @@ FUNCTION {inbook}
   format.chapter output
   format.pages output
   format.note output
-  format.linkurl output
-  format.linkdoi output
-  format.linkfile output
   format.url output
   fin.entry
   if.url.std.interword.spacing
@@ -2118,9 +2052,6 @@ FUNCTION {incollection}
   format.chapter output
   format.pages output
   format.note output
-  format.linkurl output
-  format.linkdoi output
-  format.linkfile output
   format.url output
   fin.entry
   if.url.std.interword.spacing
@@ -2147,9 +2078,6 @@ FUNCTION {inproceedings}
   format.paper output
   format.pages output
   format.note output
-  format.linkurl output
-  format.linkdoi output
-  format.linkfile output
   format.url output
   fin.entry
   if.url.std.interword.spacing
@@ -2167,9 +2095,6 @@ FUNCTION {manual}
   format.address "address" bibinfo.check output
   format.date output
   format.note output
-  format.linkurl output
-  format.linkdoi output
-  format.linkfile output
   format.url output
   fin.entry
   if.url.std.interword.spacing
@@ -2187,9 +2112,6 @@ FUNCTION {mastersthesis}
   format.address "address" bibinfo.check output
   format.date "year" output.warn
   format.note output
-  format.linkurl output
-  format.linkdoi output
-  format.linkfile output
   format.url output
   fin.entry
   if.url.std.interword.spacing
@@ -2208,9 +2130,6 @@ FUNCTION {misc}
   format.pages output
   format.date output
   format.note output
-  format.linkurl output
-  format.linkdoi output
-  format.linkfile output
   format.url output
   fin.entry
   empty.entry.warn
@@ -2227,9 +2146,6 @@ FUNCTION {patent}
   format.patent.nationality.type.number output
   format.patent.date output
   format.note output
-  format.linkurl output
-  format.linkdoi output
-  format.linkfile output
   format.url output
   fin.entry
   empty.entry.warn
@@ -2249,9 +2165,6 @@ FUNCTION {periodical}
   format.organization "organization" bibinfo.check output
   format.date "year" output.warn
   format.note output
-  format.linkurl output
-  format.linkdoi output
-  format.linkfile output
   format.url output
   fin.entry
   if.url.std.interword.spacing
@@ -2269,9 +2182,6 @@ FUNCTION {phdthesis}
   format.address "address" bibinfo.check output
   format.date "year" output.warn
   format.note output
-  format.linkurl output
-  format.linkdoi output
-  format.linkfile output
   format.url output
   fin.entry
   if.url.std.interword.spacing
@@ -2294,9 +2204,6 @@ FUNCTION {proceedings}
     }
   if$
   format.note output
-  format.linkurl output
-  format.linkdoi output
-  format.linkfile output
   format.url output
   fin.entry
   if.url.std.interword.spacing
@@ -2314,9 +2221,6 @@ FUNCTION {standard}
   format.revision output
   format.date output
   format.note output
-  format.linkurl output
-  format.linkdoi output
-  format.linkfile output
   format.url output
   fin.entry
   if.url.std.interword.spacing
@@ -2335,9 +2239,6 @@ FUNCTION {techreport}
   format.tech.report.number output.nonnull
   format.date "year" output.warn
   format.note output
-  format.linkurl output
-  format.linkdoi output
-  format.linkfile output
   format.url output
   fin.entry
   if.url.std.interword.spacing
@@ -2352,9 +2253,6 @@ FUNCTION {unpublished}
   format.article.title "title" output.warn
   format.date output
   format.note "note" output.warn
-  format.linkurl output
-  format.linkdoi output
-  format.linkfile output
   format.url output
   fin.entry
   if.url.std.interword.spacing
