@@ -7,8 +7,6 @@
 \usepackage{csquotes}
 \geometry{a4paper, margin=2.5cm}
 
-%\setlength{\parskip}{\baselineskip}%
-%\setlength{\parindent}{0pt}
 \usepackage{parskip}
 \usepackage{amssymb}
 \usepackage{tikz}
@@ -16,6 +14,10 @@
 \usepackage{enumitem}
 \usepackage[colorinlistoftodos,prependcaption,textsize=tiny]{todonotes}
 \usepackage{wrapfig}
+
+% Format bibliography links correctly
+\usepackage[hidelinks]{hyperref}
+\usepackage[T1]{fontenc}
 
 % Theorem and Proof setup
 \newtheorem{theorem}{Theorem}
@@ -42,19 +44,18 @@
 
     \section{Introduction}
 
-    Finite geometries provide a good introduction to axiomatic, sometimes called synthetic, definitions of geometries
-    because they work with finite number of points that can help visualize more abstract concepts.
-    \todo{Look over intro again, finite is nice for abstract sets I guess.}
+    Finite geometries provide a good starting point to axiomatic, sometimes called synthetic, definitions of geometries.
+    We can visualize finite geometries with as little as 7 points and lines and use them to explore abstract concepts.
     We'll begin by describing finite geometries using two sets and the set containment relation.\footnote{
-        Both the definition for geometries and projective spaces are modified from \cite[p.~1,7]{beutelspacher_projective_2000},
+        Both the definition for geometries and projective spaces are modified from \cite[p.~1,7]{beutelspacher_projective_1998},
         which uses an arbitrary symmetric and reflexive relation.
         We opt for set containment for its familiarity.}
 
     \begin{definition}
         Let $P$ be nonempty a finite set and $\mathcal{L} \subseteq \mathcal{P}(P)$, be a nonempty subset of the power set of $P$,
-        then $(P, \mathcal{L})$ is a geometry.
+        then $(P, \mathcal{L})$ is finite a geometry.
 
-        We'll call an element of $P$ a point in our space, and an element of $\mathcal{L}$ a line.
+        We call an element of $P$ a point in our space, and an element of $\mathcal{L}$ a line.
         We say a point $p$ is on a line $L$ when $p \in L$ and lines $L_1, L_2$ intersect when $L_1 \cap L_2 \neq \emptyset$.
     \end{definition}
 
@@ -73,7 +74,7 @@
             \item A2 - Given distinct points $a,b,c,d$, if $ab$ intersects $cd$, then $ac$ intersects $bd$
             \item A3 - Any line contains at least 3 elements.
             \item A4 - We call this projective space a projective plane if any two lines have at least one point in common, i.e. they intersect
-            \item S1 - To avoid simple cases, we add that at least two lines and points exist.
+            \item S1 - To avoid simple cases, we add that at least two lines (and thus points) exist.
         \end{itemize}
     \end{definition}
 
@@ -99,10 +100,9 @@
 
     \section{Order of finite projective spaces}
 
-    In fact, these do generalize, we call the first concept duality,
+    In fact, it does generalize, we call the first concept duality,
     in which theorems about lines on a projective plane also have duals regarding points (and vice-versa).
-    This generalizes further to higher dimensions with dual spaces.
-    The second gives rise to a concept of order\cite[p. 24]{beutelspacher_projective_2000}.
+    The second gives rise to a concept of order\cite[p. 24]{beutelspacher_projective_1998}.
 
     \begin{theorem}
         Given a projective space, there exists a positive integer $q$ such that any line in $L$ contains exactly $q+1$ elements.
@@ -160,9 +160,8 @@
     We might now wonder what this axiom actually does, and what the idea of dimension even means for the abstract sets we used.
 
     In fact, when looking at projective geometry through the lens of infinite fields like $\mathbb{R}$,
-    we get a definition of projective spaces by looking at one-dimensional vector subspaces of a vector space like $\mathbb{R}^n$ \cite{weisstein_projective_nodate}.
+    we get a definition of projective spaces from one-dimensional vector subspaces of a vector space like $\mathbb{R}^n$ \cite{weisstein_projective_nodate}.
     Here, our dimension comes from a concept of coordinates in the underlying vector space, i.e.\ its basis.
-
     Working purely from axioms we don't have such an obvious idea of dimension.
     We can, however, generalize concepts from vector spaces to get the following definitions.\footnote{
         The two definitions come from Wikipedia \cite{noauthor_projective_2024},
@@ -171,14 +170,16 @@
     }
 
     \begin{definition}
-        A subspace of the projective space is a subset $X \subseteq P$,
+        A subspace of a projective space $(P, \mathcal{L})$ is a projective space of points $X \subseteq P$ and lines $\mathcal{Y} \subseteq \mathcal{L}$,
         such that any line containing two points of X is a subset of X (that is, completely contained in X).
         The full space and the empty space are always subspaces.
     \end{definition}
 
     \begin{definition}
-        The geometric dimension of the space $P$ is said to be n if that is the largest number for which there is a strictly ascending chain of subspaces of this form:
-        $\emptyset = X_{-1}\subset X_{0}\subset \cdots X_{n}=P.$
+        The geometric dimension of the space $(P, \mathcal{L})$ is said to be n if that is the largest number for which there is a strictly ascending chain of subspaces of this form:
+        \begin{center}
+            $\emptyset = X_{-1}\subset X_{0}\subset \cdots X_{n}=P.$
+        \end{center}
     \end{definition}
 
     \begin{theorem}
@@ -215,7 +216,7 @@
         \begin{figure}[h]
             \label{fig:triangle}
             \centering
-            \begin{tikzpicture}
+            \begin{tikzpicture}[scale=0.7]
                 % Draw the lines
                 \draw[thick] (-1,0) -- (0,1.732);% node[right] {$L_1$};
                 \draw[thick] (1,0) -- (0,1.732);% node[right] {$L_2$};
