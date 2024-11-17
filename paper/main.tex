@@ -18,6 +18,7 @@
 % Format bibliography links correctly
 \usepackage[hidelinks]{hyperref}
 \usepackage[T1]{fontenc}
+\usepackage{mathtools}
 
 % Theorem and Proof setup
 \newtheorem{theorem}{Theorem}
@@ -102,28 +103,27 @@
 
     In fact, it does generalize, we call the first concept duality,
     in which theorems about lines on a projective plane also have duals regarding points (and vice-versa).
-    The second gives rise to a concept of order\cite[p. 24]{beutelspacher_projective_1998}.
+    In finite projective spaces, the second gives rise to a concept of order\cite[p. 24]{beutelspacher_projective_1998}.
 
     \begin{theorem}
-        Given a projective space, there exists a positive integer $q$ such that any line in $L$ contains exactly $q+1$ elements.
+        Given a finite projective space, there exists a positive integer $q$ such that any line in $L$ contains exactly $q+1$ elements.
         We call q the order of this space.
     \end{theorem}
 
     \begin{proof}
         Given any two lines $L_1, L_2$, we'll argue there exists a bijection $\phi: L_1 \rightarrow L_2$,
         and thus all lines have the same number of elements.
+        When our set of points is finite, this implies the existence of an integer order.
         If $L_1 = L_2$ we are done, so we consider distinct lines.
 
-        \underline{Case 1}: $L_1$ intersects $L_2$
-
+        \underline{Case 1}: $L_1$ intersects $L_2$.
         Then $\{a, b\} \subseteq L_1$ and $\{a, c\} \subseteq L_2$ for some points $a,b,c$,
         since by A3 both lines contain at least 3 distinct points and by supposition we have at least one shared point.
-
-        As well, by A3 line $bc$ must contain another point, name it $p$, moreover $p \notin L_1, L_2$,
+        By A3 again, line $bc$ must contain another point, name it $p$, moreover $p \notin L_1, L_2$,
         otherwise $L_1 = L_2$ by A1, the uniqueness of lines through points.
 
         Then given any other point $x \in L_1$, consider the line $xp$.
-        We'll show this must intersect $L_2$ using A2 and call the intersection point $\phi(x)$.
+        We'll show this must intersect $L_2$ and call the intersection point $\phi(x)$.
 
         \begin{figure}[h]
             \centering
@@ -147,10 +147,28 @@
 %            \caption{Illustration of our points and lines}
             \label{fig:intersecting_lines}
         \end{figure}
+        By A2: If $xa$ intersects $pc$, then $xp$ intersects $ac$.
+        We have $pc=bc$ and $xa = ab$ by A1, so both lines contain $b$ and thus intersect.
+        So $xp$ intersects $ac$.
+        We define the function $\phi(x)$ with domain $L_1$ as follows:
 
-        Given points $a,b,c,d$, if $ab$ intersects $cd$, then $ac$ intersects $bd$
+        \[
+            \phi(x) =
+            \begin{cases}
+                xp \cap L_2 & \text{if } x \neq a \\
+                a & \text{if } x = a
+            \end{cases}
+        \]
 
-        \underline{Case 2}: $L_1$ does not intersect $L_2$
+        Let $x_2\in L_1$ be distinct from $a, x$.
+        Then $\phi(x_2) \neq \phi(x)$,
+        since both pass through p and otherwise by A1 we would have $x = x_2$.
+        Using the same logic as earlier, for $y \in L_2$ distinct from $a$, the line $yp$ intersects $L_1$ at a point $x$ such that $\phi(x)=y$.
+        Finally, since $\phi$ also maps $a \in L_1$ to $a \in L_2$, $\phi$ is a bijection from $L_1$ to $L_2$.
+
+        \underline{Case 2}: $L_1$ does not intersect $L_2$.
+        Let $x \in L_1, y \in L_2$, then the line $L_3 \coloneqq xy$ intersects with both $L_1$ and $L_2$, so from case 1 we have bijections
+        $\phi_1: L_1 \rightarrow L_3$ and $\phi_2: L_3 \rightarrow L_2$, and thus a bijection $\phi_1 \circ \phi_2: L_1 \rightarrow L_3$.
     \end{proof}
 
 
@@ -257,18 +275,14 @@
 
     The Veblen-Young theorem shows finite projective spaces of dimension $n \geq 3$ can always be described using such a field.
     However, finite projective planes are much harder to classify, since they can be constructed in more ways.
-    Specifically, non-Desarguesian planes.
-    The difficulty in classifying finite projective planes gives rise to an open question:
-    \textit{Is the order of a finite projective plane always a prime power?}
-    \todo{Mention examples? State Desargues' theorem?}
+    Specifically, planes that do not satisfy the theorem of Desargues.\cite[\S3]{beutelspacher_projective_1998}
 
+    The difficulty in classifying finite projective planes gives rise to an open conjecture:
+    \textit{The order of a finite projective plane is always a prime power.}
     The number of non-isomorphic finite projective planes is only known up to order 10: $1, 1, 1, 1, 0, 1, 1, 4, 0$
     due to the computational complexity of verifying this using brute force\cite{lam_computer_1991,lam_non-existence_1989}.
-    Moreover, the closest we have come to a proof of this conjecture is the Bruck-Ryser theorem, which states if $n \equiv 1,2\ (mod\ 4)$ and $n$ is not the sum of two squares,
-    then no plane exists of order $n$.
-
-    \todo{Bruck–Ryser theorem}
-    \todo{Classification up to order 10, why is it so difficulty to do past this small number?}
+    The closest we have come to a proof of this conjecture is the Bruck-Ryser theorem\cite[p.~26]{beutelspacher_projective_1998} which states if for positive integer $n$,
+    $n \equiv 1,2\ (mod\ 4)$ and $n$ is not the sum of two squares, then no plane exists of order $n$.
 
     % References
     \newpage
